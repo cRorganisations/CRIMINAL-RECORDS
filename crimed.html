@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Crime Validation Record</title>
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/noui/nouislider.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+
+
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+</head>
+<body >
+  
+
+			<div class="container-contact100">
+				<div class="wrap-contact100">
+					<form class="contact100-form validate-form">
+						<span class="contact100-form-title">
+				Criminal Record
+			</span>
+        <span id="countIns" class="label-input100"></span>
+
+        <h2 id="instructor"></h2>
+		<span id="insTrans"></span>
+		<hr>
+
+		<img id="loader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
+        
+		
+		<div class="wrap-input100 validate-input bg1" data-validate="Please Type Accused Name">
+        <span class="label-input100">ACCUSED NAME *</span>
+                    
+		<input id="aName"  class="input100" type="text" name="name" placeholder="Enter Accused Name">
+				</div>
+
+		<div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Enter Acussed Crime">
+		<span class="label-input100">Crime *</span>
+        <input id="crime" class="input100" type="text" name="Crime" placeholder="Enter Acussed Crime ">
+		</div>
+
+        <div class="wrap-input100 bg1 rs1-wrap-input100">
+		<span class="label-input100">Section of Crime</span>
+		<input id="proof"  class="input100" type="text" name="proof" placeholder="Enter sections to the Accussed">
+		</div>
+
+		<div class="wrap-input100 validate-input bg1" data-validate="Please Give Submitted Proofs  ">
+			<span class="label-input100">Proof*</span>
+			<input id="BlockHash"  class="input100" type="text" name="name" placeholder="Enter Acussed proofs">
+			</div>
+
+		<div class="wrap-input100 validate-input bg1" data-validate="Please Give The Accused Status">
+		<span class="label-input100">ACCUSED STATUS *</span>
+		<input id="astatus" class="input100" type="text" name="name" placeholder="Enter Accused Status">
+		</div>
+	
+		<div class="wrap-input100 validate-input bg1" data-validate="Please Give the Hash File">
+		<span class="label-input100">Hash File*</span>
+		<input id="hash"  class="input100" type="text" name="name" placeholder="Enter The Hash file">
+		</div>
+		
+	
+	
+
+		
+		
+
+		<div class="container-contact100-form-btn">
+		<button id="button" class="contact100-form-btn">
+		<span>
+						Submit
+		<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+		</span>
+		</button>
+		</div>
+
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	
+	
+	<script src="js/main.js"></script>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script>
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+         web3.eth.defaultAccount = web3.eth.accounts[0];
+
+var CoursetroContract = web3.eth.contract([
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			}
+		],
+		"name": "getInstructor",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes16"
+			},
+			{
+				"name": "",
+				"type": "bytes16"
+			},
+			{
+				"name": "",
+				"type": "bytes16"
+			},
+			{
+				"name": "",
+				"type": "bytes16"
+			},
+			{
+				"name": "",
+				"type": "bytes16"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getInstructors",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "instructorAccts",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "countInstructors",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"name": "_aName",
+				"type": "bytes16"
+			},
+			{
+				"name": "_crime",
+				"type": "bytes16"
+			},
+			{
+				"name": "_proof",
+				"type": "bytes16"
+			},
+			{
+				"name": "_astatus",
+				"type": "bytes16"
+			},
+			{
+				"name": "_hash",
+				"type": "bytes16"
+			},
+			{
+				"name": "_BlockHash",
+				"type": "bytes16"
+			}
+		],
+		"name": "setInstructor",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "aName",
+				"type": "bytes16"
+			},
+			{
+				"indexed": false,
+				"name": "proof",
+				"type": "bytes16"
+			},
+			{
+				"indexed": false,
+				"name": "crime",
+				"type": "bytes16"
+			},
+			{
+				"indexed": false,
+				"name": "hash",
+				"type": "bytes16"
+			},
+			{
+				"indexed": false,
+				"name": "BlockHash",
+				"type": "bytes16"
+			}
+		],
+		"name": "instructorInfo",
+		"type": "event"
+	}
+]);
+
+var Coursetro = CoursetroContract.at('0x3fe1198e26d5517e5fb765e23782439841724fb2');
+
+
+  var instructorEvent = Coursetro.instructorInfo({}, 'latest');
+
+
+  instructorEvent.watch(function(error, result) {
+           if (result) {
+               if (result.blockHash != $("#insTrans").html())
+                    $("#loader").hide();
+
+               $("#insTrans").html('Block hash: ' + result.blockHash);
+               $("#instructor").html(web3.toAscii(result.args.aName) + ' ' + web3.toAscii(result.args.proof) + ' ' + web3.toAscii(result.args.crime) +' '+web3.toAscii(result.args.hash)+' '+web3.toAscii(result.args.BlockHash)+'(' + ' criminal)');
+           } else {
+                $("#loader").hide();
+           }
+       });
+
+      //   var instructorEvent = Coursetro.Crimes({}, 'latest');
+
+
+//instructorEvent.watch(function(error, result) {
+  //       if (result) {
+    //         if (result.blockHash != $("#insTrans2").html())
+      //            $("#loader").hide();
+
+        //     $("#insTrans2").html('Block hash: ' + result.blockHash);
+          //   $("#instructor").html(web3.toAscii(result.args.BlockHash)+' '+web3.toAscii(result.args.crime) + ' ' + web3.toAscii(result.args.proof) + ' ' + web3.toAscii(result.args.astatus) +' '+web3.toAscii(result.args.hash)+'(' + ' criminal)');
+         //} else {
+           //   $("#loader").hide();
+     //    }
+     //});
+
+           Coursetro.countInstructors((err, res) => {
+           if (res)
+            $("#countIns").html(res.c + ' Instructors');
+       })
+
+          $("#button").click(function() {
+            $("#loader").show();
+           Coursetro.setInstructor(web3.eth.defaultAccount,$("#aName").val(), $("#crime").val(), $("#proof").val(),$("#astatus").val(),$('#hash').val() ,$("#BlockHash").val(), (err, res) => {
+               if (err) {
+                   $("#loader").hide();
+               }
+           });
+       });
+        
+	 
+     //      Coursetro.countInstructors((err, res) => {
+       //    if (res)
+         //   $("#countIns2").html(res.c + ' Instructor');
+//       })
+
+  //        $("#button2").click(function() {
+    //        $("#loader").show();
+      //     Coursetro.updateDetails(web3.eth.defaultAccount, $("#BlockHash").val(),$("#crime").val(), $("#proof").val(), $("#astatus").val(),$("#hash").val() , (err, res) => {
+        //       if (err) {
+          //         $("#loader").hide();
+            //   }
+           //});
+       //});
+
+
+    </script>
+
+</body>
+</html>
